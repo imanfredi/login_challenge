@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "736815620296",
+    "project_id": "login-9463c",
+    "storage_bucket": "login-9463c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736815620296:android:6ff60dce6d78298b7f45fd",
+        "android_client_info": {
+          "package_name": "com.example.chat_fidooo.chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyComqYFQKPP7SJSF48wX1FeyZ2482hbp5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736815620296:android:f54ff56126dc22c47f45fd",
+        "android_client_info": {
+          "package_name": "com.example.login"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyComqYFQKPP7SJSF48wX1FeyZ2482hbp5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

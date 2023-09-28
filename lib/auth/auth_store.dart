@@ -1,0 +1,116 @@
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:login/auth/domain/repositories/auth_repository.dart';
+import 'package:login/user/domain/models/user.dart';
+import 'package:mobx/mobx.dart';
+
+part 'auth_store.g.dart';
+
+class AuthController = _AuthControllerBase with _$AuthController;
+
+abstract class _AuthControllerBase with Store {
+  _AuthControllerBase(this.authRepository) {
+    restoreSession();
+  }
+
+  final AuthRepository authRepository;
+
+  @observable
+  AppUser? _user;
+
+  @computed
+  AppUser? get user => _user;
+
+  @observable
+  String? errorMessage;
+
+  @computed
+  bool get hasErrorMessage => errorMessage != null;
+
+  @computed
+  bool get isAuthenticated => _user != null;
+
+  @action
+  void setUser(AppUser? user) {
+    _user = user;
+  }
+
+  @action
+  void setErrorMessage(String? error) {
+    errorMessage = error;
+  }
+
+  Future<bool> signIn({
+    required String email,
+    required String password,
+  }) async {
+    final userEither = await authRepository.signInWithEmailAndPassword(
+        email: email, password: password);
+
+    bool success = userEither.fold((l) {
+      setErrorMessage(l.message);
+      return false;
+    }, (user) {
+      setUser(user);
+      return true;
+    });
+    return success;
+  }
+
+  Future<bool> signUp({
+    required String email,
+    required String password,
+  }) async {
+    setErrorMessage(null);
+    final userEither = await authRepository.signUpWithEmailAndPassword(
+        email: email, password: password);
+
+    bool success = userEither.fold((l) {
+      setErrorMessage(l.message);
+      return false;
+    }, (user) {
+      setUser(user);
+      return true;
+    });
+    return success;
+  }
+
+  Future<bool> signOut() async {
+    final userEither = await authRepository.signOut();
+    bool success = userEither.fold((l) {
+      setErrorMessage(l.message);
+      return false;
+    }, (user) {
+      setUser(null);
+      return true;
+    });
+    return success;
+  }
+
+  Future<bool> signInWithGoogle() async {
+    final userEither = await authRepository.signInWithGoogle();
+
+    bool success = userEither.fold((l) {
+      setErrorMessage(l.message);
+      return false;
+    }, (user) {
+      setUser(user);
+      return true;
+    });
+    return success;
+  }
+
+  Future<void> restoreSession() async {
+    final userEither = await authRepository.restoreSession();
+    userEither.fold((l) {
+      Modular.to.navigate('/auth/');
+      return null;
+    }, (user) {
+      setUser(user);
+      if (user != null) {
+        Modular.to.navigate('/dashboards/');
+      } else {
+        Modular.to.navigate('/auth/');
+      }
+    });
+  }
+}

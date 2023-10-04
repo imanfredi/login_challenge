@@ -1,14 +1,14 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:login/auth/domain/repositories/auth_repository.dart';
-import 'package:login/user/domain/models/user.dart';
+import 'package:login/auth/repositories/auth_repository.dart';
+import 'package:login/user/models/app_user.dart';
 import 'package:mobx/mobx.dart';
 
 part 'auth_store.g.dart';
 
-class AuthController = _AuthControllerBase with _$AuthController;
+class AuthStore = _AuthStoreBase with _$AuthStore;
 
-abstract class _AuthControllerBase with Store {
-  _AuthControllerBase(this.authRepository) {
+abstract class _AuthStoreBase with Store {
+  _AuthStoreBase(this.authRepository) {
     restoreSession();
   }
 
@@ -107,7 +107,7 @@ abstract class _AuthControllerBase with Store {
     }, (user) {
       setUser(user);
       if (user != null) {
-        Modular.to.navigate('/dashboards/');
+        Modular.to.navigate('/posts/');
       } else {
         Modular.to.navigate('/auth/');
       }

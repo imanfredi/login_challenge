@@ -8,30 +8,29 @@ part of 'auth_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$AuthController on _AuthControllerBase, Store {
+mixin _$AuthStore on _AuthStoreBase, Store {
   Computed<AppUser?>? _$userComputed;
 
   @override
-  AppUser? get user => (_$userComputed ??= Computed<AppUser?>(() => super.user,
-          name: '_AuthControllerBase.user'))
+  AppUser? get user => (_$userComputed ??=
+          Computed<AppUser?>(() => super.user, name: '_AuthStoreBase.user'))
       .value;
   Computed<bool>? _$hasErrorMessageComputed;
 
   @override
   bool get hasErrorMessage =>
       (_$hasErrorMessageComputed ??= Computed<bool>(() => super.hasErrorMessage,
-              name: '_AuthControllerBase.hasErrorMessage'))
+              name: '_AuthStoreBase.hasErrorMessage'))
           .value;
   Computed<bool>? _$isAuthenticatedComputed;
 
   @override
   bool get isAuthenticated =>
       (_$isAuthenticatedComputed ??= Computed<bool>(() => super.isAuthenticated,
-              name: '_AuthControllerBase.isAuthenticated'))
+              name: '_AuthStoreBase.isAuthenticated'))
           .value;
 
-  late final _$_userAtom =
-      Atom(name: '_AuthControllerBase._user', context: context);
+  late final _$_userAtom = Atom(name: '_AuthStoreBase._user', context: context);
 
   @override
   AppUser? get _user {
@@ -47,7 +46,7 @@ mixin _$AuthController on _AuthControllerBase, Store {
   }
 
   late final _$errorMessageAtom =
-      Atom(name: '_AuthControllerBase.errorMessage', context: context);
+      Atom(name: '_AuthStoreBase.errorMessage', context: context);
 
   @override
   String? get errorMessage {
@@ -62,28 +61,28 @@ mixin _$AuthController on _AuthControllerBase, Store {
     });
   }
 
-  late final _$_AuthControllerBaseActionController =
-      ActionController(name: '_AuthControllerBase', context: context);
+  late final _$_AuthStoreBaseActionController =
+      ActionController(name: '_AuthStoreBase', context: context);
 
   @override
   void setUser(AppUser? user) {
-    final _$actionInfo = _$_AuthControllerBaseActionController.startAction(
-        name: '_AuthControllerBase.setUser');
+    final _$actionInfo = _$_AuthStoreBaseActionController.startAction(
+        name: '_AuthStoreBase.setUser');
     try {
       return super.setUser(user);
     } finally {
-      _$_AuthControllerBaseActionController.endAction(_$actionInfo);
+      _$_AuthStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setErrorMessage(String? error) {
-    final _$actionInfo = _$_AuthControllerBaseActionController.startAction(
-        name: '_AuthControllerBase.setErrorMessage');
+    final _$actionInfo = _$_AuthStoreBaseActionController.startAction(
+        name: '_AuthStoreBase.setErrorMessage');
     try {
       return super.setErrorMessage(error);
     } finally {
-      _$_AuthControllerBaseActionController.endAction(_$actionInfo);
+      _$_AuthStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

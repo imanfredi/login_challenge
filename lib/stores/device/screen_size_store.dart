@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-part 'screen_controller.g.dart';
+part 'screen_size_store.g.dart';
 
-class ScreenController = _ScreenControllerBase with _$ScreenController;
+class ScreenSizeStore = _ScreenSizeStoreBase with _$ScreenSizeStore;
 
-abstract class _ScreenControllerBase with Store {
+abstract class _ScreenSizeStoreBase with Store {
   @observable
   ScreenType screenType = ScreenType.Unknown;
 

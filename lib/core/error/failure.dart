@@ -17,10 +17,18 @@ class FirebaseAuthFailure extends Failure {
   }) : super(message: message, description: description);
 }
 
-class UserNotFoundFailure extends Failure {
-  const UserNotFoundFailure({
+class UserNotFoundByEmailFailure extends Failure {
+  const UserNotFoundByEmailFailure({
     String? email,
   }) : super(message: _failureMessage, description: email ?? '');
+
+  static const _failureMessage = "User not found";
+}
+
+class UserNotFoundByIdFailure extends Failure {
+  const UserNotFoundByIdFailure({
+    String? id,
+  }) : super(message: _failureMessage, description: id ?? '');
 
   static const _failureMessage = "User not found";
 }

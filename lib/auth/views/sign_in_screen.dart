@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:login/auth/auth_store.dart';
-import 'package:login/core/screen_controller.dart';
+import 'package:login/stores/device/screen_size_store.dart';
 import 'package:login/design_system/molecules/app_bar.dart';
 import 'package:login/design_system/organism/forms/sign_in_form.dart';
-import 'package:provider/provider.dart';
 
 class SignInScreen extends StatelessWidget {
   static const route = "/signIn";
@@ -16,24 +15,22 @@ class SignInScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Provider<AuthController>(
-        create: (_) => Modular.get<AuthController>(),
-        child: Scaffold(
-          appBar: FidoooAppBar(
-            title: "Inicio de sesión",
-          ),
-          body: Observer(
-            builder: (BuildContext context) {
-              ScreenType screenType =
-                  Provider.of<ScreenController>(context).screenType;
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: FidoooAppBar(
+        title: "Inicio de sesión",
+      ),
+      body: Observer(
+        builder: (BuildContext context) {
+          ScreenType screenType = Modular.get<ScreenSizeStore>().screenType;
 
-              return screenType == ScreenType.Web
-                  ? _buildWebWidget()
-                  : _buildTabletWidget();
-            },
-          ),
-        ),
-      );
+          return screenType == ScreenType.Web
+              ? _buildWebWidget()
+              : _buildTabletWidget();
+        },
+      ),
+    );
+  }
 
   Widget _buildWebWidget() {
     return const Row(

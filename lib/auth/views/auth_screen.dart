@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:login/core/screen_controller.dart';
+import 'package:login/stores/device/screen_size_store.dart';
 import 'package:login/design_system/molecules/buttons/fidooo_elevated_button.dart';
 import 'package:login/design_system/molecules/buttons/fidooo_outlined_button.dart';
 import 'package:login/design_system/tokens/fidooo_colors.dart';
 import 'package:login/design_system/tokens/fidooo_typography.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({
@@ -16,18 +16,19 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (BuildContext context) {
-      ScreenType screenType = Provider.of<ScreenController>(context).screenType;
+      ScreenType screenType = Modular.get<ScreenSizeStore>().screenType;
+
       return Scaffold(
         body: screenType == ScreenType.Web
-            ? _buildWebWidget()
+            ? _buildWebWidget(context)
             : screenType == ScreenType.Mobile
-                ? _buildMobileWidget()
-                : _buildTabletWidget(),
+                ? _buildMobileWidget(context)
+                : _buildTabletWidget(context),
       );
     });
   }
 
-  Widget _buildMobileWidget() {
+  Widget _buildMobileWidget(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,10 +44,10 @@ class AuthScreen extends StatelessWidget {
         const SizedBox(
           height: 50,
         ),
-        const Text(
-          "Bienvenido a Fidoo",
+        Text(
+          AppLocalizations.of(context)!.welcomeMessage,
           textAlign: TextAlign.center,
-          style: FidoooTypography.headlineLarge(
+          style: const FidoooTypography.headlineLarge(
             color: FidoooColors.darkMode,
           ),
         ),
@@ -84,7 +85,7 @@ class AuthScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTabletWidget() {
+  Widget _buildTabletWidget(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,10 +101,10 @@ class AuthScreen extends StatelessWidget {
         const SizedBox(
           height: 50,
         ),
-        const Text(
-          "Bienvenido a Fidoo",
+        Text(
+          AppLocalizations.of(context)!.welcomeMessage,
           textAlign: TextAlign.center,
-          style: FidoooTypography.headlineLarge(
+          style: const FidoooTypography.headlineLarge(
             color: FidoooColors.darkMode,
           ),
         ),
@@ -141,7 +142,7 @@ class AuthScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildWebWidget() {
+  Widget _buildWebWidget(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -160,9 +161,9 @@ class AuthScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              "Bienvenido a Fidoo",
-              style: FidoooTypography.headlineLarge(
+            Text(
+              AppLocalizations.of(context)!.welcomeMessage,
+              style: const FidoooTypography.headlineLarge(
                 color: FidoooColors.darkMode,
               ),
             ),

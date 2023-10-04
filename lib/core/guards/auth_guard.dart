@@ -6,6 +6,6 @@ class AuthGuard extends RouteGuard {
 
   @override
   bool canActivate(String path, ModularRoute router) {
-    return Modular.get<AuthController>().isAuthenticated;
+    return Modular.get<AuthStore>().isAuthenticated;
   }
 }

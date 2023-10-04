@@ -28,7 +28,7 @@ class _FidoooElevatedButtonState extends State<FidoooElevatedButton> {
     return SizedBox(
       height: widget.height,
       child: ElevatedButton(
-        onPressed: () => isLoading ? null : onPressed(),
+        onPressed: widget.onPressed,
         style: ButtonStyle(
           backgroundColor:
               MaterialStateProperty.all<Color>(FidoooColors.secondary),
@@ -72,15 +72,5 @@ class _FidoooElevatedButtonState extends State<FidoooElevatedButton> {
               ),
       ),
     );
-  }
-
-  void onPressed() async {
-    setState(() {
-      isLoading = true;
-    });
-    await widget.onPressed();
-    setState(() {
-      isLoading = false;
-    });
   }
 }

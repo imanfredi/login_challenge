@@ -9,7 +9,6 @@ import 'package:login/design_system/molecules/buttons/fidooo_social_button.dart'
 import 'package:login/design_system/molecules/input/fidooo_text_field.dart';
 import 'package:login/design_system/tokens/fidooo_colors.dart';
 import 'package:login/design_system/tokens/fidooo_typography.dart';
-import 'package:provider/provider.dart';
 
 final signInFormKey = GlobalKey<FormBuilderState>();
 
@@ -25,8 +24,6 @@ class SignInForm extends StatefulWidget {
 class _SignInFormState extends State<SignInForm> {
   @override
   Widget build(BuildContext context) {
-    final authController = Provider.of<AuthController>(context);
-
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 1),
       decoration: BoxDecoration(
@@ -98,6 +95,8 @@ class _SignInFormState extends State<SignInForm> {
             ),
             Observer(
               builder: (_) {
+                final authController = Modular.get<AuthStore>();
+
                 return authController.hasErrorMessage
                     ? Column(
                         children: [
@@ -153,23 +152,25 @@ class _SignInFormState extends State<SignInForm> {
     final String password =
         signInFormKey.currentState!.fields['password']!.value;
 
-    bool success = await Modular.get<AuthController>()
+    bool success = await Modular.get<AuthStore>()
         .signIn(email: email, password: password);
     if (success) {
-      Modular.to.navigate('/dashboards/');
+      Modular.to.navigate('/posts/');
+
     }
   }
 
   Future<void> onGoogleSignIn() async {
-    bool success = await Modular.get<AuthController>().signInWithGoogle();
+    bool success = await Modular.get<AuthStore>().signInWithGoogle();
     if (success) {
-      Modular.to.navigate('/dashboards/');
+      Modular.to.navigate('/posts/');
+
     }
   }
 
   @override
   void dispose() {
-    Modular.get<AuthController>().setErrorMessage(null);
+    Modular.get<AuthStore>().setErrorMessage(null);
     super.dispose();
   }
 }

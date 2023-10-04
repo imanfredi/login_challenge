@@ -4,9 +4,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:login/auth/auth_store.dart';
 import 'package:login/design_system/atoms/fidooo_icon.dart';
 import 'package:login/design_system/molecules/app_bar.dart';
-import 'package:login/user/app_store.dart';
-import 'package:login/user/views/dashboard.dart';
-import 'package:provider/provider.dart';
+import 'package:login/posts/controllers/todos_controller.dart';
+import 'package:login/posts/views/dashboard.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({
@@ -20,7 +19,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
-    Modular.get<AppStore>().fetchUsers();
+    Modular.get<TodosController>().fetchPosts();
     super.initState();
   }
 
@@ -36,28 +35,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
           )
         ],
       ),
-      body: Provider<AppStore>(
-        create: (_) => Modular.get<AppStore>(),
-        child: Observer(
-          builder: (BuildContext context) {
-            final appStore = Modular.get<AppStore>();
-            return appStore.isLoading
-                ? const Center(
-                    child: Text("Loading"),
-                  )
-                : appStore.hasErrorMessage
-                    ? Center(
-                        child: Text(appStore.errorMessage!),
-                      )
-                    : const Dashboard();
-          },
-        ),
+      body: Observer(
+        builder: (BuildContext context) {
+          final appStore = Modular.get<TodosController>();
+          return appStore.isLoading
+              ? const Center(
+                  child: Text("Loading"),
+                )
+              : appStore.hasErrorMessage
+                  ? Center(
+                      child: Text(appStore.errorMessage!),
+                    )
+                  : const Dashboard();
+        },
       ),
     );
   }
 
   void onLogout() async {
-    final authStore = Modular.get<AuthController>();
+    final authStore = Modular.get<AuthStore>();
     bool sucess = await authStore.signOut();
     if (sucess) {
       Modular.to.navigate('/auth/');

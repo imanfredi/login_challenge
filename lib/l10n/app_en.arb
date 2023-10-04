@@ -1,0 +1,17 @@
+{
+  "signInButton": "Sign in",
+  "@signInButton": {
+    "description": "Text used in sign in button"
+  },
+  "signUpButton": "Sign up",
+    "@signInButton": {
+      "description": "Text used in sign up button"
+  },
+
+  "welcomeMessage": "Welcome to Fidooo",
+    "@welcomeMessage": {
+        "description": "Text used in welcome message in auth screen"
+  }
+
+
+}
